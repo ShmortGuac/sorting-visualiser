@@ -1,11 +1,11 @@
 
 <template>
-  <div class="flex flex-col justify-center items-center border-b-4 p-4 gap-4">
+  <div class="flex flex-col justify-center items-center h-[25vh] gap-5 bg-slate-800 text-amber-50">
     <h1 class="text-4xl font-bold">Radix Sort Visualiser</h1>
     <div class="flex flex-row gap-5 justify-center items-center">
-      <button class="border-2 px-4 py-2 cursor-pointer" @click="radixSortReal(array, delay)">Radix Sort Real Time</button>
-      <button class="border-2 px-4 py-2 cursor-pointer" @click="radixSortVisual(array, delay)">Radix Sort</button>
-      <button class="border-2 px-4 py-2 cursor-pointer" @click="shuffle(size)">Shuffle</button>
+      <button class="border-2 rounded-lg px-4 py-2 cursor-pointer hover:bg-amber-50 hover:text-slate-800 hover:scale-110 transition-all duration-200" @click="radixSortReal(array, delay)">Radix Sort Real Time</button>
+      <button class="border-2 rounded-lg px-4 py-2 cursor-pointer hover:bg-amber-50 hover:text-slate-800 hover:scale-110 transition-all duration-200" @click="radixSortVisual(array, delay)">Radix Sort</button>
+      <button class="border-2 rounded-lg px-4 py-2 cursor-pointer hover:bg-amber-50 hover:text-slate-800 hover:scale-110 transition-all duration-200" @click="shuffle(size)">Shuffle</button>
       <input type="range" min="10" max="500" value="10" v-model="size">
       <label for="size">Size : {{ size }}</label>
       <input type="range" min="1" max="100" value="50" v-model="delay">
@@ -13,7 +13,7 @@
     </div>
   </div>
   
-  <div class="flex justify-center items-center p-10">
+  <div class="flex justify-center items-center h-[75vh] bg-slate-800">
     <canvas ref="canvas" class="block" height="500" width="900"></canvas>
   </div>
 
@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { ref,  onMounted } from 'vue';
+import { ref,  onMounted, watch } from 'vue';
 
 
 const canvas = ref(null);
@@ -39,6 +39,11 @@ onMounted(() => {
   array = [1,2,3,4,5,6,7,8,9,10]
   drawBars(array);
 })
+
+watch(size, (newSize) => {
+  generateArray(newSize);   // regenerate array
+});
+
 
 function drawBars(arr) {
   ctx.clearRect(0, 0, canvas.value.width, canvas.value.height)
@@ -88,7 +93,14 @@ function shuffle(num){
     array[i] = j
   }
   drawBars(array);
-  console.log(array);
+}
+
+function generateArray(size){
+  array = [];
+  for(let i=1; i<=size; i++){
+    array.push(i);
+  }
+  drawBars(array);
 }
 
 function sleep(ms) {
@@ -146,8 +158,6 @@ async function countingSortForRadixReal(array, exp, speed) {
 }
 
 async function radixSortReal(array, speed) {
-
-
   if (isSorting.value) return;
   isSorting.value = true;
 
@@ -161,8 +171,6 @@ async function radixSortReal(array, speed) {
 }
 
 async function radixSortVisual(array, speed) {
-
-
   if (isSorting.value) return;
   isSorting.value = true;
 
