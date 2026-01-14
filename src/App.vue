@@ -8,7 +8,7 @@
       <button class="border-2 rounded-lg px-4 py-2 cursor-pointer hover:bg-amber-50 hover:text-slate-800 hover:scale-110 transition-all duration-200" @click="shuffle(size)">Shuffle</button>
       <input type="range" min="10" max="500" value="10" v-model="size">
       <label for="size">Size : {{ size }}</label>
-      <input type="range" min="1" max="100" value="50" v-model="delay">
+      <input type="range" min="1" max="500" value="50" v-model="delay">
       <label for="speed">Delay : {{ delay }}</label>
     </div>
   </div>
